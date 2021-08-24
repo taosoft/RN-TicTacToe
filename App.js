@@ -3,13 +3,12 @@ import { StyleSheet, View, TouchableOpacity, Alert, Button } from 'react-native'
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
 export default function App() {
+  const [currentPlayer, setCurrentPlayer] = useState(1)
   const [gameState, setGameState] = useState([
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
   ])
-
-  const [currentPlayer, setCurrentPlayer] = useState(1)
 
   resetGame = () => {
     setGameState([
@@ -20,27 +19,26 @@ export default function App() {
     setCurrentPlayer(1)
   }
 
-  getWinner = () => {
+  const getWinner = () => {
     const NUM_TILES = 3;
     let sumRow, sumCol, sum;
-    let arr = gameState;
+    const arr = gameState;
 
     for(let i = 0; i < NUM_TILES; i++){
       //Filas
-      sumRow = arr[i, 0] + arr[i][1] + arr[i][2];
-      console.log(sumRow);
+      sumRow = arr[i][0] + arr[i][1] + arr[i][2];
+      // console.log(sumRow);
       if(sumRow === 3) { return 1;}
       else if(sumRow === -3) { return -1 };
-      
+     
       //Columnas
-      sumCol = arr[0, i] + arr[1][i] + arr[2][i];
+      sumCol = arr[0][i] + arr[1][i] + arr[2][i];
       if(sumCol === 3) { return 1;}
       else if(sumCol === -3) { return -1 };
     }
 
-
     //Diagonales
-    sum = arr[0, 0] + arr[1][1] + arr[2][2];
+    sum = arr[0][0] + arr[1][1] + arr[2][2];
     if(sum === 3) { return 1;}
     else if(sum === -3) { return -1 };
     sum = arr[2, 0] + arr[1][1] + arr[0][2];
@@ -50,16 +48,16 @@ export default function App() {
     return 0;
   }
 
-  onTilePress = (row, col) => {
-    var value = gameState[row][col];
+  const onTilePress = (row, col) => {
+    let value = gameState[row][col];
     if(value !== 0) { return; }
 
-    var arr = gameState.slice();
+    let arr = [...gameState];
     arr[row][col] = currentPlayer;
     setGameState(arr);
     setCurrentPlayer(currentPlayer === 1 ? -1 : 1)
-
-    var winner = getWinner()
+    
+    const winner = getWinner()
     if(winner === 1){
       Alert.alert("Gana Jugador 1")
       resetGame()
@@ -70,8 +68,8 @@ export default function App() {
     }
   }
 
-  renderIcon = (row, col) => {
-    var value = gameState[row][col];
+  const renderIcon = (row, col) => {
+    let value = gameState[row][col];
     switch(value)
     {
       case 1: return <Icon name="close" style={styles.tileX} />;
