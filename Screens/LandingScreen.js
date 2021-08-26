@@ -1,8 +1,8 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function LandingPage() {
+export default function LandingPage({ navigation }) {
   const [playerName, setPlayerName] = React.useState("");
 
   return (
@@ -27,7 +27,7 @@ export default function LandingPage() {
 
       <Button
         title="Comenzar Partida"
-        onPress={() => Alert.alert(playerName)}
+        onPress={() => navigation.navigate('Game')}
       />
 
     </View>
