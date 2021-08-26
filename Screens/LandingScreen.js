@@ -27,7 +27,7 @@ export default function LandingPage({ navigation }) {
 
       <Button
         title="Comenzar Partida"
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate('Game', { name: playerName })}
       />
 
     </View>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Alert, Button } from 'react-native';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
-export default function Game() {
+export default function Game(props) {
   const [currentPlayer, setCurrentPlayer] = useState(1)
   const [gameState, setGameState] = useState([
     [0, 0, 0],
@@ -41,7 +41,7 @@ export default function Game() {
     sum = arr[0][0] + arr[1][1] + arr[2][2];
     if(sum === 3) { return 1;}
     else if(sum === -3) { return -1 };
-    sum = arr[2, 0] + arr[1][1] + arr[0][2];
+    sum = arr[2][0] + arr[1][1] + arr[0][2];
     if(sum === 3) { return 1;}
     else if(sum === -3) { return -1 };
 
@@ -59,11 +59,11 @@ export default function Game() {
     
     const winner = getWinner()
     if(winner === 1){
-      Alert.alert("Gana Jugador 1")
+      Alert.alert("Ganó " + props.route.params.name)
       resetGame()
     }
     else if(winner === -1){
-      Alert.alert("Gana Jugador 2")
+      Alert.alert("Ganó la CPU")
       resetGame()
     }
   }
